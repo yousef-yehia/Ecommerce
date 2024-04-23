@@ -17,6 +17,8 @@ namespace Api.Controllers
         private readonly IGenericRepository<ProductType> _productTypeRepository;
         private readonly IGenericRepository<ProductBrand> _productBrandRepository;
         private readonly IMapper _mapper;
+        protected APIResponse _response;
+
 
         public ProductController(IProductRepository productRepository, IMapper mapper, IGenericRepository<ProductBrand> productBrandRepository, IGenericRepository<ProductType> productTypeRepository)
         {
@@ -24,15 +26,20 @@ namespace Api.Controllers
             _mapper = mapper;
             _productBrandRepository = productBrandRepository;
             _productTypeRepository = productTypeRepository;
+            this._response = new APIResponse();
         }
 
         [HttpGet ("GetProducts", Name = "GetProducts")]
-        public async Task<ActionResult<IReadOnlyList<ProductResponseDto>>> GetProducts()
+        public async Task<ActionResult<APIResponse>> GetProducts()
         {
             var spec = new ProductsWithBrandsAndTypesSpecification();
             var products = await _productRepository.ListAsync(spec);
             var productsResponse = _mapper.Map < IReadOnlyList <ProductResponseDto>>(products);
-            return Ok(productsResponse);
+
+            _response.IsSuccess = true;
+            _response.StatusCode = System.Net.HttpStatusCode.OK;
+            _response.Result = productsResponse;
+            return Ok(_response);
         }
 
         [HttpGet ("GetProduct {id}", Name = "GetProduct")]
@@ -41,7 +48,11 @@ namespace Api.Controllers
             var spec = new ProductsWithBrandsAndTypesSpecification(id);
             var product = await _productRepository.GetEntityWothSpecAsync(spec);
             var productResponse = _mapper.Map<ProductResponseDto>(product);
-            return Ok(productResponse);
+
+            _response.IsSuccess = true;
+            _response.StatusCode = System.Net.HttpStatusCode.OK;
+            _response.Result = productResponse;
+            return Ok(_response);
         }
     }
 }
