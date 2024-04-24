@@ -6,6 +6,7 @@ using Core.Specification;
 using Infrastructure.Repository;
 using AutoMapper;
 using Api.Dto;
+using Api.ApiResponse;
 
 namespace Api.Controllers
 {
@@ -32,27 +33,41 @@ namespace Api.Controllers
         [HttpGet ("GetProducts", Name = "GetProducts")]
         public async Task<ActionResult<APIResponse>> GetProducts()
         {
-            var spec = new ProductsWithBrandsAndTypesSpecification();
-            var products = await _productRepository.ListAsync(spec);
-            var productsResponse = _mapper.Map < IReadOnlyList <ProductResponseDto>>(products);
+            try 
+            {
+                var spec = new ProductsWithBrandsAndTypesSpecification();
+                var products = await _productRepository.ListAsync(spec);
+                var productsResponse = _mapper.Map<IReadOnlyList<ProductResponseDto>>(products);
 
-            _response.IsSuccess = true;
-            _response.StatusCode = System.Net.HttpStatusCode.OK;
-            _response.Result = productsResponse;
-            return Ok(_response);
+                var response = _response.OkResponse(productsResponse);
+                return Ok(response);
+            }
+            catch (Exception ex) 
+            {
+                var response = _response.BadRequestResponse(ex.Message);
+                return BadRequest(response);
+            }
+
         }
 
         [HttpGet ("GetProduct {id}", Name = "GetProduct")]
         public async Task<ActionResult<ProductResponseDto>> GetProduct(int id)
         {
-            var spec = new ProductsWithBrandsAndTypesSpecification(id);
-            var product = await _productRepository.GetEntityWothSpecAsync(spec);
-            var productResponse = _mapper.Map<ProductResponseDto>(product);
+            try 
+            {
+                var spec = new ProductsWithBrandsAndTypesSpecification(id);
+                var product = await _productRepository.GetEntityWothSpecAsync(spec);
+                var productResponse = _mapper.Map<ProductResponseDto>(product);
 
-            _response.IsSuccess = true;
-            _response.StatusCode = System.Net.HttpStatusCode.OK;
-            _response.Result = productResponse;
-            return Ok(_response);
+                var response = _response.OkResponse(productResponse);
+                return Ok(response);
+            }
+            catch (Exception ex) 
+            {
+                var response = _response.BadRequestResponse(ex.Message);
+                return BadRequest(response);
+            }
+           
         }
     }
 }
