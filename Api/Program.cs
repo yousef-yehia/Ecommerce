@@ -1,4 +1,7 @@
+using Api.ApiResponse;
 using Api.Helper;
+using API.Extensions;
+using Carter;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repository;
@@ -11,17 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<StoreDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-
-builder.Services.AddScoped (typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped <IProductRepository, ProductRepository>();
-builder.Services.AddAutoMapper(typeof(MappingProfiles));
+builder.Services.AddApplicationServices(builder.Configuration);
+    
 
 var app = builder.Build();
 
@@ -54,5 +48,7 @@ app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapCarter();
 
 app.Run();
