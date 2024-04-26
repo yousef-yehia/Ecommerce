@@ -34,7 +34,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("GetProducts", Name = "GetProducts")]
-        public async Task<Results<Ok<APIResponse>, BadRequest<APIResponse>>> GetProducts([FromQuery] ProductSpecParams productSpecParams)
+        public async Task<ActionResult<APIResponse>> GetProducts([FromQuery] ProductSpecParams productSpecParams)
         {
             try
             {
@@ -44,15 +44,15 @@ namespace Api.Controllers
                 var products = await _productRepository.ListAsync(spec);
                 var productsResponse = _mapper.Map<List<ProductResponseDto>>(products);
 
-                var PaginatedProductsResponse = Pagination<ProductResponseDto>.CreateAsync(productsResponse, productSpecParams.PageIndex, productSpecParams.PageSize, totalItems); 
+                var PaginatedProductsResponse = Pagination<ProductResponseDto>.CreateAsync(productsResponse, productSpecParams.PageIndex, productSpecParams.PageSize, totalItems);
 
                 var response = _response.OkResponse(PaginatedProductsResponse);
-                return TypedResults.Ok(response);
+                return Ok(response);
             }
             catch (Exception ex)
             {
                 var response = _response.BadRequestResponse(ex.Message);
-                return TypedResults.BadRequest(response);
+                return BadRequest(response);
             }
 
         }

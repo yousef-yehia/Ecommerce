@@ -31,6 +31,5 @@ namespace Core.Specification
         //    productSpecParams = null; // Initialize to null if parsing fails
         //    return false; // Return false if parsing fails
         //}
-
     }
 }

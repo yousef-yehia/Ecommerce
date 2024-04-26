@@ -10,6 +10,7 @@
 //using Carter;
 //using Microsoft.AspNetCore.Http.HttpResults;
 //using Api.Helper;
+//using Core.Specifications;
 
 //namespace Api.Endpoints
 //{
@@ -24,18 +25,20 @@
 //        }
 
 //        public async Task<Results<Ok<APIResponse>, BadRequest<APIResponse>>> GetProducts(
-//            [FromQuery] ProductSpecParams productSpecParams, 
+//            [FromQuery] ProductSpecParams productSpecParams,
 //            [FromServices] IProductRepository _productRepository, [FromServices] APIResponse _response, [FromServices] IMapper _mapper)
 //        {
 //            try
 //            {
 //                var spec = new ProductsWithBrandsAndTypesSpecification(productSpecParams);
+//                var countSpec = new ProductsWithFiltersForCountSpecification(productSpecParams);
+//                var totalItems = await _productRepository.CountAsync(countSpec);
 //                var products = await _productRepository.ListAsync(spec);
-//                var pagedProducts = await Pagination<Product>.Paginate(products.AsQueryable(), productSpecParams.PageIndex, productSpecParams.PageSize);
-//                var productsResponse = _mapper.Map<IReadOnlyList<ProductResponseDto>>(pagedProducts);
-//                var pagedProductResponse = await Pagination<Product>.CreateAsync(products.AsQueryable(), productSpecParams.PageIndex, productSpecParams.PageSize);
+//                var productsResponse = _mapper.Map<List<ProductResponseDto>>(products);
 
-//                var response = _response.OkResponse(pagedProductResponse);
+//                var PaginatedProductsResponse = Pagination<ProductResponseDto>.CreateAsync(productsResponse, productSpecParams.PageIndex, productSpecParams.PageSize, totalItems);
+
+//                var response = _response.OkResponse(PaginatedProductsResponse);
 //                return TypedResults.Ok(response);
 //            }
 //            catch (Exception ex)
@@ -43,6 +46,7 @@
 //                var response = _response.BadRequestResponse(ex.Message);
 //                return TypedResults.BadRequest(response);
 //            }
+
 
 //        }
 

@@ -6,6 +6,7 @@ using Infrastructure.Data;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace API.Extensions
 {
@@ -22,7 +23,11 @@ namespace API.Extensions
             {
                 option.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
-
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var options = ConfigurationOptions.Parse(config.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(options);
+            });
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddAutoMapper(typeof(MappingProfiles));
