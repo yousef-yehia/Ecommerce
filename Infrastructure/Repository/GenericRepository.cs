@@ -31,7 +31,7 @@ namespace Infrastructure.Repository
             return await dbSet.FindAsync(id);
         }
 
-        public async Task<T> GetEntityWothSpecAsync(ISpecification<T> specification)
+        public async Task<T> GetEntityWithSpecAsync(ISpecification<T> specification)
         {
             return await ApplySpecification(specification).FirstOrDefaultAsync();
         }
@@ -40,7 +40,10 @@ namespace Infrastructure.Repository
         {
             return await ApplySpecification(specification).ToListAsync();
         }
-
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
         private IQueryable<T> ApplySpecification(ISpecification<T> specification)
         {
 
