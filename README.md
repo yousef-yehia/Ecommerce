@@ -5,6 +5,7 @@ This project is an ASP.NET Core API for an e-commerce platform. It provides func
 ## Technologies Used
 - ASP.NET Core: Framework for building cross-platform web applications.
 - Entity Framework Core: Object-Relational Mapper (ORM) for database interactions.
+- Identity Framework: Provides user authentication and authorization capabilities.
 - SQL Server: Relational database management system used for data storage.
 - Redis: Key-value database used for caching.
 - JWT (JSON Web Tokens): Authentication mechanism for securing API endpoints.
