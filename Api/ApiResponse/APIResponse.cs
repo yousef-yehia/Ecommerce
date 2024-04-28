@@ -42,5 +42,13 @@ namespace Api.ApiResponse
             response.ErrorMessages.Add(message);
             return response;
         }
+        public APIResponse UnauthorizedResponse()
+        {
+            APIResponse response = new APIResponse();
+            response.IsSuccess = false;
+            response.StatusCode = HttpStatusCode.Unauthorized;
+            response.ErrorMessages.Add("YOU ARE NOT AUTHORIZED MAN!!");
+            return response;
+        }
     }
 }

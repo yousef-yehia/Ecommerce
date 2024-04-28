@@ -3,10 +3,16 @@ using Api.Helper;
 using API.Extensions;
 using Carter;
 using Core.Interfaces;
+using Core.Models.Identity;
 using Infrastructure.Data;
+using Infrastructure.Identity;
 using Infrastructure.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,11 +29,15 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<StoreDbContext>();
 var logger = services.GetRequiredService<ILogger<Program>>();
+var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+var userManager = services.GetRequiredService<UserManager<AppUser>>();
 
 try
 {
     await context.Database.MigrateAsync();
     await StoreDbContextSeed.SeedAsync(context);
+    await identityContext.Database.MigrateAsync();
+    await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
 }
 catch (Exception ex)
 {
@@ -45,6 +55,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();
