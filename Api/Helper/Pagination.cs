@@ -5,7 +5,7 @@ namespace Api.Helper
 {
     public class Pagination<T> where T : class
     {
-        public Pagination(IReadOnlyList<T> data, int pageIndex, int pageSize, int count , bool hasNextPage)
+        public Pagination(IReadOnlyList<T> data, int pageIndex, int pageSize, int count, bool hasNextPage)
         {
             PageIndex = pageIndex;
             PageSize = pageSize;
@@ -21,15 +21,17 @@ namespace Api.Helper
 
         public IReadOnlyList<T> Data { get; set; }
 
-        //public static IReadOnlyList<T> Paginate(IQueryable<T> query, int pageIndex, int pageSize)
-        //{
-        //    var items = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
-        //    return items.ToList();
-        //}
-        public static Pagination<T> CreateAsync(List<T> query, int pageIndex, int pageSize ,int count)
+        public static Pagination<T> Paginate(List<T> query, int pageIndex, int pageSize)
+        {
+            var data = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var totalCount = data.Count;
+            var result = CreateAsync(data, pageIndex, pageSize, totalCount);
+            return result;
+        }
+        public static Pagination<T> CreateAsync(List<T> query, int pageIndex, int pageSize, int count)
         {
             var totalCount = query.Count;
-            bool hasNextPage = pageIndex* pageSize < count;
+            bool hasNextPage = pageIndex * pageSize < count;
 
             return new(query, pageIndex, pageSize, totalCount, hasNextPage);
         }

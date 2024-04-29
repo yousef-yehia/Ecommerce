@@ -21,15 +21,5 @@ namespace Core.Specification
             get => _pageSize;
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
-
-        //public static bool TryParse(string input, out ProductSpecParams productSpecParams)
-        //{
-        //    // Implement parsing logic here
-        //    // Example: Parse input string and initialize productSpecParams
-        //    // Return true if parsing succeeds, false otherwise
-
-        //    productSpecParams = null; // Initialize to null if parsing fails
-        //    return false; // Return false if parsing fails
-        //}
     }
 }

@@ -52,7 +52,7 @@ namespace Core.Specification
                 }
             }
 
-            ApplyPaging(productSpecParams.PageSize * (productSpecParams.PageIndex - 1), productSpecParams.PageSize);
+            //ApplyPaging(productSpecParams.PageSize * (productSpecParams.PageIndex - 1), productSpecParams.PageSize);
         }
         public ProductsWithBrandsAndTypesSpecification(int id) : base(x=> x.Id == id)
         {

@@ -49,11 +49,11 @@ namespace Core.Specification
         {
             Criteria = criteria;
         }
-        protected void ApplyPaging(int skip, int take)
-        {
-            Skip = skip;
-            Take = take;
-            IsPagingEnabled = true;
-        }
+        //protected void ApplyPaging(int skip, int take)
+        //{
+        //    Skip = skip;
+        //    Take = take;
+        //    IsPagingEnabled = true;
+        //}
     }
 }
