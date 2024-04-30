@@ -74,6 +74,12 @@ namespace Api.Controllers
         {
             try
             {
+                if (CheckEmailExistsAsync(registerDto.Email).Result.Value)
+                {
+                    
+                    return BadRequest(_apiResponse.BadRequestResponse("Email address is in use"));
+                }
+
                 var user = new AppUser
                 {
                     DisplayName = registerDto.DisplayName,
