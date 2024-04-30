@@ -72,7 +72,7 @@ namespace Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<APIResponse>> Register(RegisterDto registerDto)
         {
-            try 
+            try
             {
                 var user = new AppUser
                 {
@@ -95,10 +95,10 @@ namespace Api.Controllers
                 var response = _apiResponse.OkResponse(userToReturn);
                 return Ok(response);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return (_apiResponse.BadRequestResponse(ex.Message));
-            } 
+            }
 
         }
 
@@ -118,7 +118,7 @@ namespace Api.Controllers
                 var result = _mapper.Map<Address, AddressDto>(user.Address);
                 return Ok(_apiResponse.OkResponse(result));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(_apiResponse.BadRequestResponse(ex.Message));
             }
@@ -135,14 +135,14 @@ namespace Api.Controllers
 
             var result = await _userManager.UpdateAsync(user);
 
-            if (result.Succeeded) 
+            if (result.Succeeded)
             {
-                var resultToReturn =_mapper.Map<AddressDto>(user.Address);
+                var resultToReturn = _mapper.Map<AddressDto>(user.Address);
                 return Ok(_apiResponse.OkResponse(resultToReturn));
 
-            } 
+            }
 
-            return BadRequest( _apiResponse.BadRequestResponse("Problem updating the user"));
+            return BadRequest(_apiResponse.BadRequestResponse("Problem updating the user"));
         }
     }
 }
