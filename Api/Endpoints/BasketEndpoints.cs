@@ -62,14 +62,12 @@ namespace Api.Endpoints
         {
             try
             {
-                var products = await _productRepository.GetAllAsync();
+                var doesProductsExist = await _productRepository.DoesProdectsExist(basket);
 
-                bool allItemsExistInProducts = basket.Items.All(item => products.Any(p => p.Id == item.Id));
 
-                if (!allItemsExistInProducts)
+                if (!doesProductsExist)
                 {
                     return TypedResults.BadRequest(_apiResponse.BadRequestResponse("there is a product id in the basket doesn't match any product exists"));
-
                 }
 
                 var updatedBasket = await _basketRepository.AddItemToBasketAsync(basket);

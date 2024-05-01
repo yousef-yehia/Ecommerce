@@ -33,22 +33,6 @@ namespace Infrastructure.Repository
             return await GetBasketAsync(basket.Id);
         }
 
-        //public async Task<CustomerBasket> AddItemToBasketAsync(string basketId, BasketItem item)
-        //{
-        //    var basket = await GetBasketAsync(basketId);
-
-        //    if (basket == null)
-        //    {
-        //        basket = new CustomerBasket { Id = basketId };
-        //    }
-
-        //    basket.Items.Add(item);
-
-        //    await UpdateBasketAsync(basket);
-
-        //    return basket;
-        //}
-
         public async Task<CustomerBasket> AddItemToBasketAsync(CustomerBasket basket)
         {
             if (basket == null)

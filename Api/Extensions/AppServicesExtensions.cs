@@ -94,6 +94,7 @@ namespace API.Extensions
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddScoped(typeof(APIResponse));
