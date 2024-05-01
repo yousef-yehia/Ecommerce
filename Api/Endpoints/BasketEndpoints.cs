@@ -57,10 +57,21 @@ namespace Api.Endpoints
             }
         }
         public async Task<Results<Ok<APIResponse>, BadRequest<APIResponse>>> AddItemToBasket(
-            [AsParameters] CustomerBasket basket, [FromServices] APIResponse _apiResponse, [FromServices] IBasketRepository _basketRepository)
+            [AsParameters] CustomerBasket basket, [FromServices] APIResponse _apiResponse,
+            [FromServices] IBasketRepository _basketRepository, [FromServices] IProductRepository _productRepository)
         {
             try
             {
+                var products = await _productRepository.GetAllAsync();
+
+                bool allItemsExistInProducts = basket.Items.All(item => products.Any(p => p.Id == item.Id));
+
+                if (!allItemsExistInProducts)
+                {
+                    return TypedResults.BadRequest(_apiResponse.BadRequestResponse("there is a product id in the basket doesn't match any product exists"));
+
+                }
+
                 var updatedBasket = await _basketRepository.AddItemToBasketAsync(basket);
                 var result = _apiResponse.OkResponse(updatedBasket);
                 return TypedResults.Ok(result);

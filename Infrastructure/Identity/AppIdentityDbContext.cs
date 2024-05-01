@@ -16,9 +16,15 @@ namespace Infrastructure.Identity
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-        }
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<AppUser>()
+        //        .HasOne(au => au.Address)
+        //        .WithOne(a => a.AppUser)
+        //        .HasForeignKey<Address>(a => a.AppUserId);
+        //}
     }
 }
