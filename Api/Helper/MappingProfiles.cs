@@ -3,6 +3,7 @@ using API.Helpers;
 using AutoMapper;
 using Core.Models;
 using Core.Models.Identity;
+using Core.Models.OrderAggregate;
 
 namespace Api.Helper
 {
@@ -16,6 +17,7 @@ namespace Api.Helper
                 .ForMember(d => d.PictureUrl, o => o.MapFrom<ProductUrlResolver>())
                 .ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<OrderCustomerAddress, AddressDto>().ReverseMap();
 
         }
     }

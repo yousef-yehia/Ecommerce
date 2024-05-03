@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Models.Identity;
 
 namespace Core.Models.OrderAggregate
 {
@@ -12,7 +11,7 @@ namespace Core.Models.OrderAggregate
         public Order()
         {
         }
-        public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail, Address shipToAddress,
+        public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail, OrderCustomerAddress shipToAddress,
             DeliveryMethod deliveryMethod, decimal subtotal)
         {
             BuyerEmail = buyerEmail;
@@ -24,7 +23,7 @@ namespace Core.Models.OrderAggregate
         public int Id { get; set; }
         public string BuyerEmail { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.UtcNow;
-        public Address ShipToAddress { get; set; }
+        public OrderCustomerAddress ShipToAddress { get; set; }
         public DeliveryMethod DeliveryMethod { get; set; }
         public IReadOnlyList<OrderItem> OrderItems { get; set; }
         public decimal Subtotal { get; set; }

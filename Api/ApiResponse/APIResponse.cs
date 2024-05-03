@@ -20,35 +20,39 @@ namespace Api.ApiResponse
 
         public APIResponse BadRequestResponse(string message)
         {
-            APIResponse response = new APIResponse();
-            response.IsSuccess = false;
-            response.StatusCode = HttpStatusCode.BadRequest;
-            response.ErrorMessages.Add(message);
-            return response;
+            return new APIResponse
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                IsSuccess = false,
+                ErrorMessages = new List<string> { message }
+            };
         }
         public APIResponse OkResponse(object result)
         {
-            APIResponse response = new APIResponse();
-            response.IsSuccess = true;
-            response.StatusCode = HttpStatusCode.OK;
-            response.Result = result;
-            return response;
+            return new APIResponse
+            {
+                StatusCode = HttpStatusCode.OK,
+                IsSuccess = true,
+                Result = result
+            };
         }
         public APIResponse NotFoundResponse(string message)
         {
-            APIResponse response = new APIResponse();
-            response.IsSuccess = false;
-            response.StatusCode = HttpStatusCode.NotFound;
-            response.ErrorMessages.Add(message);
-            return response;
+            return new APIResponse
+            {
+                StatusCode = HttpStatusCode.NotFound,
+                IsSuccess = false,
+                ErrorMessages = new List<string> { message }
+            };
         }
         public APIResponse UnauthorizedResponse()
         {
-            APIResponse response = new APIResponse();
-            response.IsSuccess = false;
-            response.StatusCode = HttpStatusCode.Unauthorized;
-            response.ErrorMessages.Add("YOU ARE NOT AUTHORIZED MAN!!");
-            return response;
+            return new APIResponse
+            {
+                StatusCode = HttpStatusCode.Unauthorized,
+                IsSuccess = false,
+                ErrorMessages = new List<string> { "You are not authorized" }
+            };
         }
     }
 }

@@ -16,9 +16,6 @@ namespace Infrastructure.Data
         {
         }
 
-        //public StoreDbContext()
-        //{
-        //}
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
@@ -32,14 +29,7 @@ namespace Infrastructure.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseSqlServer("Data Source=VICIOUS\\VICIOUSSQL;Initial Catalog=Ecommerce;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-        //    }
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+
 
     }
 }

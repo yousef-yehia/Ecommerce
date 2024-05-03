@@ -49,5 +49,22 @@ namespace Infrastructure.Repository
 
             return SpecificationEvaluator<T>.GetQuery(dbSet.AsQueryable(), specification);
         }
+
+        public void Add(T entity)
+        {
+            _storeDb.Set<T>().Add(entity);
+        }
+
+        public void Delete(T entity)
+        {
+            _storeDb.Set<T>().Remove(entity);
+        }
+
+        public void Update(T entity)
+        {
+            _storeDb.Set<T>().Attach(entity);
+            _storeDb.Entry(entity).State = EntityState.Modified;
+        }
+
     }
 }
