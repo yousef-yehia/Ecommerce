@@ -1,4 +1,4 @@
-﻿using Core.Models.Identity;
+﻿using Core.Models.OrderAggregate;
 
 namespace Api.Dto
 {
@@ -7,7 +7,7 @@ namespace Api.Dto
         public int Id { get; set; }
         public string BuyerEmail { get; set; }
         public DateTime OrderDate { get; set; }
-        public Address ShipToAddress { get; set; }
+        public OrderCustomerAddress ShipToAddress { get; set; }
         public string DeliveryMethod { get; set; }
         public decimal ShippingPrice { get; set; }
         public IReadOnlyList<OrderItemDto> OrderItems { get; set; }
