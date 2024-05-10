@@ -21,19 +21,13 @@ namespace Api.Helper
 
         public IReadOnlyList<T> Data { get; set; }
 
-        public static Pagination<T> Paginate(List<T> query, int pageIndex, int pageSize)
+        public static Pagination<T> Paginate(List<T> data, int pageIndex, int pageSize)
         {
-            var data = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             var totalCount = data.Count;
-            var result = CreateAsync(data, pageIndex, pageSize, totalCount);
-            return result;
-        }
-        public static Pagination<T> CreateAsync(List<T> query, int pageIndex, int pageSize, int count)
-        {
-            var totalCount = query.Count;
-            bool hasNextPage = pageIndex * pageSize < count;
-
-            return new(query, pageIndex, pageSize, totalCount, hasNextPage);
+            var dataToReturn = data.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var responseDataCount = dataToReturn.Count;
+            bool hasNextPage = pageIndex * pageSize < totalCount;
+            return new(dataToReturn, pageIndex, pageSize, responseDataCount, hasNextPage);
         }
     }
 }
