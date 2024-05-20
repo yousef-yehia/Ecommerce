@@ -20,7 +20,7 @@ This project is an ASP.NET Core API for an e-commerce platform. It provides func
 - Category Management: Administrators can perform CRUD operations on product categories.
 - Product Listing: Customers can view the list of available products.
 - Shopping Basket: Customers can add products to their shopping basket.
-- Ordering Functionality (Planned): Customers will be able to place orders.
+- Ordering Functionality: Customers will be able to place orders.
 - Payment Integration (Planned): Integration with payment gateways for secure online payments.
 
 ## Installation
