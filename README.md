@@ -13,6 +13,8 @@ This project is an ASP.NET Core API for an e-commerce platform. It provides func
 - AutoMapper: Library for object-to-object mapping.
 - Repository Pattern: Design pattern for abstracting data access.
 - Specification Pattern: Design pattern for encapsulating query logic.
+- Unit of Work Pattern: to manage transactions and ensure that multiple operations are treated as a single logical unit.
+
 
 ## Features
 - Authentication and Authorization: JWT-based authentication ensures secure access to the API endpoints. Different roles are assigned to administrators and customers to control access to various functionalities.
